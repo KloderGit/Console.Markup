@@ -3,11 +3,11 @@ using Markup.RenderElement;
 
 namespace Markup;
 
-public class NewTableCell : IViewComponent
+public class SimpleTableCell : IViewComponent
 {
     public int Order { get; set; }
     
-    public NewTableCell(string marker, IViewComponent content)
+    public SimpleTableCell(string marker, IViewComponent content)
     {
         Marker = marker;
         Content = content;
@@ -22,15 +22,15 @@ public class NewTableCell : IViewComponent
     }
 }
 
-internal class NewTableCellRender : IRenderElement<NewTableCell>
+internal class NewTableCellRender : IRenderElement<SimpleTableCell>
 {
     public int Width { get; }
     public Dimension Dimension { get; }
-    public NewTableCell ViewComponent { get; }
+    public SimpleTableCell ViewComponent { get; }
 
     private IRenderElement ChildRender;
 
-    public NewTableCellRender(int allowedWidth, NewTableCell component)
+    public NewTableCellRender(int allowedWidth, SimpleTableCell component)
     {
         Width = allowedWidth;
         ViewComponent = component;
