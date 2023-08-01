@@ -1,15 +1,13 @@
-
 using System.Text;
-using ConsoleMarkup;
-using ConsoleMarkup.Extension;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+
+namespace Markup.RenderElement;
 
 internal class NewTableNewRender : IRenderElement<NewTable>
 {
     private TableColumnWidthCalculator cellWidthCalculator;
     
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public NewTable ViewComponent { get; }
 
@@ -21,7 +19,7 @@ internal class NewTableNewRender : IRenderElement<NewTable>
     
     public NewTableNewRender(int allowedWidth, NewTable component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         cellWidthCalculator = new TableColumnWidthCalculator(GetFreeSpaceForCells(), ViewComponent.Columns.Count);
         ColumnRenders = CreteColumnCellRenders().ToList();
@@ -39,7 +37,7 @@ internal class NewTableNewRender : IRenderElement<NewTable>
         return result;
     }
 
-    private int GetFreeSpaceForCells() => AllowedWidth - GetTableBorderSpace();
+    private int GetFreeSpaceForCells() => Width - GetTableBorderSpace();
 
     private IEnumerable<IRenderElement> CreteColumnCellRenders()
     {
@@ -107,7 +105,7 @@ internal class NewTableNewRender : IRenderElement<NewTable>
             
             for (int i = 0; i < ColumnRenders.Count; i++)
             {
-                var sb = string.Empty.GenerateByChar(columnWidth.Pop(), Symbol.horizontalSymbol);
+                var sb = Symbol.GenerateCharSeq(columnWidth.Pop(), Symbol.horizontalSymbol);
                 rs += sb;
                 var l1 = rs.Length;
                 var isLast = ColumnRenders.Count - 1 == i;
@@ -142,7 +140,7 @@ internal class NewTableNewRender : IRenderElement<NewTable>
                 }
                 else
                 {
-                    stringBuilder.Append(string.Empty.GenerateByChar(columnWidth.Pop(), ' '));
+                    stringBuilder.Append(Symbol.GenerateCharSeq(columnWidth.Pop(), ' '));
                 }
 
                 var isLast = columnCellAggregate.Count - 1 == j;
@@ -170,7 +168,7 @@ internal class NewTableNewRender : IRenderElement<NewTable>
             
             for (int i = 0; i < ColumnRenders.Count; i++)
             {
-                var sb = string.Empty.GenerateByChar(columnWidth.Pop(), '═');
+                var sb = Symbol.GenerateCharSeq(columnWidth.Pop(), '═');
                 rs += sb;
                 var l1 = rs.Length;
                 var isLast = ColumnRenders.Count - 1 == i;

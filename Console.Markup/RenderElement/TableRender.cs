@@ -1,11 +1,10 @@
-using ConsoleMarkup.Extension;
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class TableRender : IRenderElement<Table>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public Table ViewComponent { get; }
 
@@ -13,7 +12,7 @@ internal class TableRender : IRenderElement<Table>
 
     public TableRender(int allowedWidth, Table content)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = content;
 
         CreateChildren();
@@ -44,7 +43,7 @@ internal class TableRender : IRenderElement<Table>
         }
 
         var block = new Block(children: rowsArray.ToArray());
-        var render = ((IViewComponent)block).CreateRender(AllowedWidth);
+        var render = ((IViewComponent)block).CreateRender(Width);
 
         RenderObject = render;
     }    
@@ -53,7 +52,7 @@ internal class TableRender : IRenderElement<Table>
     {
         var childrenHeight = RenderObject.Dimension.Height;
         
-        var dimension = new Dimension(AllowedWidth, childrenHeight);
+        var dimension = new Dimension(Width, childrenHeight);
 
         return dimension;
     }

@@ -1,10 +1,10 @@
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal record PageRender : IRenderElement<Page>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public Page ViewComponent { get; }
 

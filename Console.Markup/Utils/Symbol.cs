@@ -1,4 +1,4 @@
-namespace ConsoleMarkup;
+namespace Markup;
 
 public static class Symbol
 {

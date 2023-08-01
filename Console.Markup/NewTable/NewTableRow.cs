@@ -1,7 +1,7 @@
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class NewTableRow : IViewComponent
 {
@@ -29,20 +29,20 @@ public class NewTableRow : IViewComponent
 
 internal class NewTableRowRender : IRenderElement<NewTableRow>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public NewTableRow ViewComponent { get; }
     private IRenderElement ChildrenRender;
 
     public NewTableRowRender(int allowedWidth, NewTableRow component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         var block = new Block(layout: Layout.Inline, 
             children: ViewComponent.Cells.ToArray());
         
         
-        ChildrenRender = ((IViewComponent)block).CreateRender(AllowedWidth);
+        ChildrenRender = ((IViewComponent)block).CreateRender(Width);
         Dimension = ChildrenRender.Dimension with { Width = allowedWidth };
     }
     

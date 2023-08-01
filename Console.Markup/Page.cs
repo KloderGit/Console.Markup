@@ -1,8 +1,7 @@
-using System.Linq.Expressions;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class Page : IViewComponent
 {

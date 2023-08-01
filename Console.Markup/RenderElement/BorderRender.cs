@@ -1,11 +1,10 @@
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.Extension;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class BorderRender : IRenderElement<Border>
 {
-    public int AllowedWidth { get; set; }
+    public int Width { get; set; }
     public Dimension Dimension { get; set; }
     public Border ViewComponent { get; }
 
@@ -13,7 +12,7 @@ internal class BorderRender : IRenderElement<Border>
 
     public BorderRender(int allowedWidth, Border component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         
         BuildChildrenRenders();
@@ -30,7 +29,7 @@ internal class BorderRender : IRenderElement<Border>
 
     private int GetAvailableWidthForContent()
     {
-        var width = AllowedWidth - (ViewComponent.Left ? 1 : 0) - (ViewComponent.Right ? 1 : 0);
+        var width = Width - (ViewComponent.Left ? 1 : 0) - (ViewComponent.Right ? 1 : 0);
         return width;
     }
     
@@ -39,7 +38,7 @@ internal class BorderRender : IRenderElement<Border>
         var childrenMaxHeight = childrenRender.Dimension.Height;
         var totalRenderElementHeight = childrenMaxHeight + (ViewComponent.Top ? 1 : 0) + (ViewComponent.Bottom ? 1 : 0);
         
-        var dimension = new Dimension(AllowedWidth, totalRenderElementHeight);
+        var dimension = new Dimension(Width, totalRenderElementHeight);
         
         return dimension;
     }
@@ -57,15 +56,15 @@ internal class BorderRender : IRenderElement<Border>
         const char leftBottomCornerSymbol = '└';
         const char rightBottomCornerSymbol = '┘';
         
-        var left = string.Empty.GenerateByChar((ViewComponent.Left ? 1 : 0), verticalSymbol);
-        var right = string.Empty.GenerateByChar((ViewComponent.Right ? 1 : 0), verticalSymbol);
+        var left = Symbol.GenerateCharSeq((ViewComponent.Left ? 1 : 0), verticalSymbol);
+        var right = Symbol.GenerateCharSeq((ViewComponent.Right ? 1 : 0), verticalSymbol);
         
         if (ViewComponent.Top)
         {
             var firstSymbol = ViewComponent.Left ? leftTopCornerSymbol : horizontalSymbol;
             var lastSymbol = ViewComponent.Right ? rightTopCornerSymbol : horizontalSymbol;
             
-            var top = string.Empty.GenerateByChar(Dimension.Width-2, horizontalSymbol);
+            var top = Symbol.GenerateCharSeq(Dimension.Width-2, horizontalSymbol);
             if(string.IsNullOrEmpty(top) == false) layout.Add($"{firstSymbol}{top}{lastSymbol}");
         }
 
@@ -79,7 +78,7 @@ internal class BorderRender : IRenderElement<Border>
             var firstSymbol = ViewComponent.Left ? leftBottomCornerSymbol : horizontalSymbol;
             var lastSymbol = ViewComponent.Right ? rightBottomCornerSymbol : horizontalSymbol;
             
-            var bottom = string.Empty.GenerateByChar(Dimension.Width - 2, horizontalSymbol);
+            var bottom = Symbol.GenerateCharSeq(Dimension.Width - 2, horizontalSymbol);
             if(string.IsNullOrEmpty(bottom) == false) layout.Add($"{firstSymbol}{bottom}{lastSymbol}");
         }
 

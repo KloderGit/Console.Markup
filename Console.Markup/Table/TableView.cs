@@ -1,5 +1,5 @@
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public readonly record struct Header(string Value);
 public readonly record struct Column(Header Title, int Limit, ConsoleColor color = ConsoleColor.Black, bool LineBreak = false );

@@ -1,7 +1,7 @@
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class NewTableCell : IViewComponent
 {
@@ -24,7 +24,7 @@ public class NewTableCell : IViewComponent
 
 internal class NewTableCellRender : IRenderElement<NewTableCell>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public NewTableCell ViewComponent { get; }
 
@@ -32,7 +32,7 @@ internal class NewTableCellRender : IRenderElement<NewTableCell>
 
     public NewTableCellRender(int allowedWidth, NewTableCell component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         ChildRender = ViewComponent.Content.CreateRender(allowedWidth);
         Dimension = ChildRender.Dimension;

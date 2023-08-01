@@ -1,14 +1,7 @@
-using System.Collections;
-using ConsoleMarkup.Interface;
-
-namespace ConsoleMarkup;
+namespace Markup.Interface;
 
 public interface IBlockElement
 {
     IEnumerable<IViewComponent> Children { get; }
 }
 
-public interface IViewComponent
-{
-    internal IRenderElement CreateRender(int parentWidth);
-}

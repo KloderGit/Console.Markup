@@ -1,11 +1,10 @@
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.Extension;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class IndentRender : IRenderElement<Indent>
 {
-    public int AllowedWidth { get; set; }
+    public int Width { get; set; }
     public Dimension Dimension { get; set; }
     public Indent ViewComponent { get; }
 
@@ -13,7 +12,7 @@ internal class IndentRender : IRenderElement<Indent>
 
     public IndentRender(int allowedWidth, Indent component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         
         BuildChildrenRenders();
@@ -28,7 +27,7 @@ internal class IndentRender : IRenderElement<Indent>
 
     private int GetAvailableWidthForContent()
     {
-        var width = AllowedWidth - ViewComponent.Left - ViewComponent.Right;
+        var width = Width - ViewComponent.Left - ViewComponent.Right;
         return width;
     }
     
@@ -37,7 +36,7 @@ internal class IndentRender : IRenderElement<Indent>
         var childrenMaxHeight = childrenRender.Dimension.Height;
         var totalRenderElementHeight = childrenMaxHeight + ViewComponent.Top + ViewComponent.Bottom;
         
-        var dimension = new Dimension(AllowedWidth, totalRenderElementHeight);
+        var dimension = new Dimension(Width, totalRenderElementHeight);
         
         Dimension = dimension;
     }
@@ -47,12 +46,12 @@ internal class IndentRender : IRenderElement<Indent>
         var layout = new List<string>();
 
         var symbol = ' ';
-        var horizontalString = string.Empty.GenerateByChar(Dimension.Width, symbol);
+        var horizontalString = Symbol.GenerateCharSeq(Dimension.Width, symbol);
 
         if (ViewComponent.Top != 0) { for (int i = 0; i < ViewComponent.Top; i++) layout.Add(horizontalString); }
 
-        var left = string.Empty.GenerateByChar(ViewComponent.Left, symbol);
-        var right = string.Empty.GenerateByChar(ViewComponent.Right, symbol);
+        var left = Symbol.GenerateCharSeq(ViewComponent.Left, symbol);
+        var right = Symbol.GenerateCharSeq(ViewComponent.Right, symbol);
         
         var body = childrenRender.Build().Select(x=>left + x + right);
         

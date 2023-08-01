@@ -1,9 +1,8 @@
 using System.Text;
-using ConsoleMarkup.Extension;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 internal class NewTableNewRoRender : IRenderElement
 {
@@ -14,7 +13,7 @@ internal class NewTableNewRoRender : IRenderElement
 
     private IEnumerable<IRenderElement> ChildrenRenders;
 
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
 
     public NewTableNewRoRender(NewTableRow row, BorderProperty border, TableDelimiter delimiter)
@@ -22,7 +21,7 @@ internal class NewTableNewRoRender : IRenderElement
         this.row = row;
         this.border = border;
         this.delimiter = delimiter;
-        cellWidthCalculator = new TableColumnWidthCalculator(AllowedWidth, row.Cells.Count);
+        cellWidthCalculator = new TableColumnWidthCalculator(Width, row.Cells.Count);
 
         ChildrenRenders = CreateChildren();
         Dimension = GetDimension();
@@ -48,7 +47,7 @@ internal class NewTableNewRoRender : IRenderElement
     {
         var cellsHeight = ChildrenRenders.Select(x => x.Dimension.Height).Max();
 
-        return new Dimension(AllowedWidth, cellsHeight);
+        return new Dimension(Width, cellsHeight);
     }
 
     public IEnumerable<string> Build()
@@ -79,7 +78,7 @@ internal class NewTableNewRoRender : IRenderElement
                 }
                 else
                 {
-                    stringBuilder.Append(string.Empty.GenerateByChar(cellsWidth.Pop(), ' '));
+                    stringBuilder.Append(Symbol.GenerateCharSeq(cellsWidth.Pop(), ' '));
                 }
 
                 var isLast = columnCellAggregate.Count - 1 == j;

@@ -1,9 +1,7 @@
-using System.Security.AccessControl;
-using ConsoleMarkup.Extension;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public readonly record struct TableDelimiter(bool vertical = false, bool horizontal = false);
 
@@ -97,7 +95,7 @@ public class NewTable : IViewComponent
 
 internal class NewTableRender : IRenderElement<NewTable>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public NewTable ViewComponent { get; }
 
@@ -106,10 +104,10 @@ internal class NewTableRender : IRenderElement<NewTable>
 
     public NewTableRender(int allowedWidth, NewTable component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
 
-        var headerUnderline = new Content(string.Empty.GenerateByChar(AllowedWidth, '='));
+        var headerUnderline = new Content(Symbol.GenerateCharSeq(Width, '='));
 
         var columnsBlock = new Block(layout: Layout.Inline, children: ViewComponent.Columns.ToArray());
         

@@ -1,10 +1,10 @@
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class BlockRender : IRenderElement<Block>
 {
-    public int AllowedWidth { get; set; }
+    public int Width { get; set; }
     public Block ViewComponent { get; set; }
     public Dimension Dimension { get; set; }
 
@@ -12,7 +12,7 @@ internal class BlockRender : IRenderElement<Block>
 
     public BlockRender(int allowedWidth, Block content)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = content;
 
         CreateChildren();
@@ -22,14 +22,14 @@ internal class BlockRender : IRenderElement<Block>
 
     private void CreateChildren()
     {
-        ChildrenRenders = ViewComponent.Children.Select(x => ((IViewComponent)x).CreateRender(AllowedWidth));
+        ChildrenRenders = ViewComponent.Children.Select(x => ((IViewComponent)x).CreateRender(Width));
     }
 
     private Dimension GetDimension()
     {
         var childrenHeight = ChildrenRenders.Select(x => x.Dimension.Height).Sum();
         
-        var dimension = new Dimension(AllowedWidth, childrenHeight);
+        var dimension = new Dimension(Width, childrenHeight);
 
         return dimension;
     }
