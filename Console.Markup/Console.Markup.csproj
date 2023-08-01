@@ -4,6 +4,14 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Markup</RootNamespace>
+        <Title>Console Markup</Title>
+        <Authors>KloderGit</Authors>
+        <Copyright>KloderGit</Copyright>
+        <PackageProjectUrl>https://github.com/KloderGit/Console.Markup</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/KloderGit/Console.Markup</RepositoryUrl>
+        <RepositoryType>library</RepositoryType>
+        <PackageTags>console markup layout render</PackageTags>
     </PropertyGroup>
 
 </Project>
