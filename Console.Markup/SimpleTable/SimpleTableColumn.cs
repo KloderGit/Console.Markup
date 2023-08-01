@@ -3,7 +3,7 @@ using Markup.RenderElement;
 
 namespace Markup;
 
-public class TableColumn : IViewComponent
+public class SimpleTableColumn : IViewComponent
 {
     public int Order { get; set; }
     public string Marker { get; }
@@ -11,14 +11,14 @@ public class TableColumn : IViewComponent
     public bool Delimiter { get; }
     public IViewComponent Content { get; }
 
-    public TableColumn(string marker, IViewComponent content, bool delimiter = false)
+    public SimpleTableColumn(string marker, IViewComponent content, bool delimiter = false)
     {
         this.Marker = marker;
         this.Content = content;
         Delimiter = delimiter;
     }
 
-    internal TableColumn(string Header, IViewComponent Content, int order, bool delimiter = false) : this(Header, Content, delimiter)
+    internal SimpleTableColumn(string Header, IViewComponent Content, int order, bool delimiter = false) : this(Header, Content, delimiter)
     {
         Order = order;
     }
@@ -30,15 +30,15 @@ public class TableColumn : IViewComponent
 }
 
 
-internal class TableColumnRender : IRenderElement<TableColumn>
+internal class TableColumnRender : IRenderElement<SimpleTableColumn>
 {
     public int Width { get; }
     public Dimension Dimension { get; }
-    public TableColumn ViewComponent { get; }
+    public SimpleTableColumn ViewComponent { get; }
 
     private IRenderElement ChildRender;
 
-    public TableColumnRender(int allowedWidth, TableColumn component)
+    public TableColumnRender(int allowedWidth, SimpleTableColumn component)
     {
         Width = allowedWidth;
         ViewComponent = component;

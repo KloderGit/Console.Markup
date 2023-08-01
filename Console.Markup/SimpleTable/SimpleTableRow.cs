@@ -3,22 +3,22 @@ using Markup.RenderElement;
 
 namespace Markup;
 
-public class NewTableRow : IViewComponent
+public class SimpleTableRow : IViewComponent
 {
     public int Order { get; set; }
-    public List<NewTableCell> Cells { get; set; }
+    public List<SimpleTableCell> Cells { get; set; }
 
-    public NewTableRow(NewTableCell[] children = null)
+    public SimpleTableRow(SimpleTableCell[] children = null)
     {
-        Cells = children != null && children.Any() ? children.ToList() : new List<NewTableCell>();
+        Cells = children != null && children.Any() ? children.ToList() : new List<SimpleTableCell>();
     }
 
-    internal NewTableRow(int order = 0, NewTableCell[] children = null) : this(children)
+    internal SimpleTableRow(int order = 0, SimpleTableCell[] children = null) : this(children)
     {
         Order = order;
     }
 
-    public void AddCell(NewTableCell cell) => Cells.Add(cell);
+    public void AddCell(SimpleTableCell cell) => Cells.Add(cell);
     
     IRenderElement IViewComponent.CreateRender(int parentWidth)
     {
@@ -27,14 +27,14 @@ public class NewTableRow : IViewComponent
 }
 
 
-internal class NewTableRowRender : IRenderElement<NewTableRow>
+internal class NewTableRowRender : IRenderElement<SimpleTableRow>
 {
     public int Width { get; }
     public Dimension Dimension { get; }
-    public NewTableRow ViewComponent { get; }
+    public SimpleTableRow ViewComponent { get; }
     private IRenderElement ChildrenRender;
 
-    public NewTableRowRender(int allowedWidth, NewTableRow component)
+    public NewTableRowRender(int allowedWidth, SimpleTableRow component)
     {
         Width = allowedWidth;
         ViewComponent = component;
