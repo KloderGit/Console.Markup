@@ -8,14 +8,15 @@ public readonly record struct TableDelimiter(bool vertical = false, bool horizon
 public class SimpleTable : IViewComponent
 {
     public TableDelimiter Delimiter { get; set; }
-    public BorderProperty Border { get; set; }
+    public Border Border { get; set; }
     
     public List<SimpleTableColumn> Columns { get; }
     public List<SimpleTableRow> Rows { get; }
 
-    public SimpleTable(SimpleTableColumn[] columns = null, SimpleTableRow[] rows = null, TableDelimiter? delimiter = null, BorderProperty? border = null)
+    public SimpleTable(SimpleTableColumn[] columns = null, SimpleTableRow[] rows = null, 
+        TableDelimiter? delimiter = null, Border? border = null)
     {
-        Border = border ?? new BorderProperty();
+        Border = border ?? new Border();
         Delimiter = delimiter ?? new TableDelimiter();
         
         Columns = columns != default && columns.Any() 
@@ -109,7 +110,7 @@ internal class NewTableRender : IRenderElement<SimpleTable>
 
         var headerUnderline = new Content(Symbol.GenerateCharSeq(Width, '='));
 
-        var columnsBlock = new Block(layout: Layout.Inline, children: ViewComponent.Columns.ToArray());
+        var columnsBlock = new Block(direction: Direction.Horizontal, children: ViewComponent.Columns.ToArray());
         
         var headerBlock = new Block(children: new IViewComponent[]{ columnsBlock, headerUnderline });
 

@@ -38,7 +38,7 @@ internal class NewTableRowRender : IRenderElement<SimpleTableRow>
     {
         Width = allowedWidth;
         ViewComponent = component;
-        var block = new Block(layout: Layout.Inline, 
+        var block = new Block(direction: Direction.Horizontal, 
             children: ViewComponent.Cells.ToArray());
         
         

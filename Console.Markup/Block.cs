@@ -5,23 +5,28 @@ namespace Markup;
 
 public class Block : IBlockElement, IViewComponent
 {
-    private readonly Layout layout;
+    private readonly Direction direction;
     private readonly List<IViewComponent> children;
     public IEnumerable<IViewComponent> Children => children;
-    
-    public Block(
-        Layout layout = Layout.Block,
-        params IViewComponent[] children)
+    public Border? Border { get; }
+    public Margin? Margin { get; }
+    public Padding? Padding { get; }
+
+    public Block(Direction direction = Direction.Vertical, Border? border = null, Margin? margin = null, 
+        Padding? padding = null, params IViewComponent[] children)
     {
-        this.layout = layout;
+        Margin = margin;
+        Padding = padding;
+        Border = border;
+        this.direction = direction;
         this.children = children.ToList();
     }
     
     IRenderElement IViewComponent.CreateRender(int parentWidth)
     {
-        IRenderElement render = layout switch
+        IRenderElement render = direction switch
         {
-            Layout.Inline => new SpanBlockRender(parentWidth, this),
+            Direction.Horizontal => new SpanBlockRender(parentWidth, this),
             _ => new BlockRender(parentWidth, this)
         };
         
@@ -29,9 +34,9 @@ public class Block : IBlockElement, IViewComponent
     }
 }
 
-public enum Layout
+public enum Direction
 {
-    Block,
-    Inline,
+    Vertical,
+    Horizontal,
     Wrap
 }

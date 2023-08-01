@@ -2,15 +2,15 @@ using Markup.Interface;
 
 namespace Markup.RenderElement;
 
-internal class IndentRender : IRenderElement<Indent>
+internal class IndentRender : IRenderElement<IndentComponent>
 {
     public int Width { get; set; }
     public Dimension Dimension { get; set; }
-    public Indent ViewComponent { get; }
+    public IndentComponent ViewComponent { get; }
 
     private IRenderElement childrenRender;
 
-    public IndentRender(int allowedWidth, Indent component)
+    public IndentRender(int allowedWidth, IndentComponent component)
     {
         Width = allowedWidth;
         ViewComponent = component;

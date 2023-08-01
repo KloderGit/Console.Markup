@@ -1,9 +1,8 @@
 using Markup.Interface;
-using Markup.RenderElement;
 
-namespace Markup;
+namespace Markup.RenderElement;
 
-public record Border(IViewComponent Child, bool Top = false, bool Bottom = false, bool Left = false, bool Right = false) 
+internal record BorderComponent(IViewComponent Child, bool Top = false, bool Bottom = false, bool Left = false, bool Right = false) 
     : IViewComponent
 {
     IRenderElement IViewComponent.CreateRender(int parentWidth)

@@ -2,15 +2,15 @@ using Markup.Interface;
 
 namespace Markup.RenderElement;
 
-internal class BorderRender : IRenderElement<Border>
+internal class BorderRender : IRenderElement<BorderComponent>
 {
     public int Width { get; set; }
     public Dimension Dimension { get; set; }
-    public Border ViewComponent { get; }
+    public BorderComponent ViewComponent { get; }
 
     private IRenderElement childrenRender;
 
-    public BorderRender(int allowedWidth, Border component)
+    public BorderRender(int allowedWidth, BorderComponent component)
     {
         Width = allowedWidth;
         ViewComponent = component;
