@@ -31,7 +31,7 @@ jobs:
       run: dotnet nuget add source --username KloderGit --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/KloderGit/index.json"
 
     - name: Push
-      run: dotnet nuget push -s GitHub -k ${{ secrets.GITHUB_TOKEN }} .\Console.Markup\bin\Release\*.nupkg 
+      run: dotnet nuget push -s GitHub -k ${{ secrets.GITHUB_TOKEN }} ".\Console.Markup\bin\Release\*.nupkg"
 
 
 
