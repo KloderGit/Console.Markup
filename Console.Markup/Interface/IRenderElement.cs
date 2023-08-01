@@ -1,10 +1,10 @@
-using ConsoleMarkup.RenderElement;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup.Interface;
+namespace Markup.Interface;
 
 internal interface IRenderElement
 {
-    int AllowedWidth { get; }
+    int Width { get; }
     Dimension Dimension { get; }
     IEnumerable<string> Build();
 }

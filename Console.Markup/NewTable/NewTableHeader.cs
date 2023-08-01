@@ -1,6 +1,6 @@
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class NewTableHeader : IViewComponent
 {

@@ -1,12 +1,11 @@
 using System.Text;
-using ConsoleMarkup.Extension;
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class SpanBlockRender : IRenderElement<Block>
 {
-    public int AllowedWidth { get; set; }
+    public int Width { get; set; }
     public Block ViewComponent { get; set; }
     public Dimension Dimension { get; set; }
 
@@ -14,7 +13,7 @@ internal class SpanBlockRender : IRenderElement<Block>
 
     public SpanBlockRender(int allowedWidth, Block content)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = content;
 
         CreateChildren();
@@ -24,10 +23,10 @@ internal class SpanBlockRender : IRenderElement<Block>
 
     private void CreateChildren()
     {
-        // var childAllowWidth = AllowedWidth / ViewComponent.Children.Count();
+        // var childAllowWidth = Width / ViewComponent.Children.Count();
         // ChildrenRenders = ViewComponent.Children.Select(x => x.CreateRender(childAllowWidth));
 
-        var widthCalculator = new TableColumnWidthCalculator(AllowedWidth, ViewComponent.Children.Count());
+        var widthCalculator = new TableColumnWidthCalculator(Width, ViewComponent.Children.Count());
         var childrenWidth = widthCalculator.GetWidth();
         foreach (var child in ViewComponent.Children)
         {
@@ -39,7 +38,7 @@ internal class SpanBlockRender : IRenderElement<Block>
     {
         var childrenHeight = ChildrenRenders.Select(x => x.Dimension.Height).Max();
         
-        var dimension = new Dimension(AllowedWidth, childrenHeight);
+        var dimension = new Dimension(Width, childrenHeight);
 
         return dimension;
     }
@@ -51,7 +50,7 @@ internal class SpanBlockRender : IRenderElement<Block>
         var array = ChildrenRenders
             .Select(x => 
                 new Tuple<int, Stack<string>>(
-                    x.AllowedWidth, 
+                    x.Width, 
                     new Stack<string>(x.Build().Reverse())))
             .ToList();
 
@@ -68,7 +67,7 @@ internal class SpanBlockRender : IRenderElement<Block>
                 }
                 else
                 {
-                    stringBuilder.Append(string.Empty.GenerateByChar(child.Item1, ' '));
+                    stringBuilder.Append(Symbol.GenerateCharSeq(child.Item1, ' '));
                 }
             }
             

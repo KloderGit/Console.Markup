@@ -1,4 +1,4 @@
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class TableColumnWidthCalculator
 {

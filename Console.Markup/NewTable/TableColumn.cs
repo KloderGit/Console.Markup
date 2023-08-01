@@ -1,6 +1,7 @@
-using ConsoleMarkup;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
+
+namespace Markup;
 
 public class TableColumn : IViewComponent
 {
@@ -31,7 +32,7 @@ public class TableColumn : IViewComponent
 
 internal class TableColumnRender : IRenderElement<TableColumn>
 {
-    public int AllowedWidth { get; }
+    public int Width { get; }
     public Dimension Dimension { get; }
     public TableColumn ViewComponent { get; }
 
@@ -39,7 +40,7 @@ internal class TableColumnRender : IRenderElement<TableColumn>
 
     public TableColumnRender(int allowedWidth, TableColumn component)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = component;
         CreateChildren();
         Dimension = GetDimension();
@@ -47,7 +48,7 @@ internal class TableColumnRender : IRenderElement<TableColumn>
 
     private void CreateChildren()
     {
-        ChildRender = ViewComponent.Content.CreateRender(AllowedWidth);
+        ChildRender = ViewComponent.Content.CreateRender(Width);
     }
 
     private Dimension GetDimension()

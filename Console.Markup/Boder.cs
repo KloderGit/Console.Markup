@@ -1,7 +1,7 @@
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
+using Markup.RenderElement;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public record Border(IViewComponent Child, bool Top = false, bool Bottom = false, bool Left = false, bool Right = false) 
     : IViewComponent

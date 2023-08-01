@@ -1,25 +1,24 @@
-using System.Collections;
-using ConsoleMarkup.Interface;
+using Markup.Interface;
 
-namespace ConsoleMarkup.RenderElement;
+namespace Markup.RenderElement;
 
 internal class ContentRender : IRenderElement<Content>
 {
-    public int AllowedWidth { get; set; }
+    public int Width { get; set; }
     public Content ViewComponent { get; }
     public Dimension Dimension { get; set; }
     
     public ContentRender(int allowedWidth, Content content)
     {
-        AllowedWidth = allowedWidth;
+        Width = allowedWidth;
         ViewComponent = content;
         Dimension = GetDimension();
     }
     
     private Dimension GetDimension()
     {
-        var totalRenderElementHeight = GetValueHeight(AllowedWidth);
-        var dimension = new Dimension(AllowedWidth, totalRenderElementHeight);
+        var totalRenderElementHeight = GetValueHeight(Width);
+        var dimension = new Dimension(Width, totalRenderElementHeight);
 
         return dimension;
     }
@@ -47,7 +46,7 @@ internal class ContentRender : IRenderElement<Content>
         
         var elementValue = ViewComponent.Value;
         
-        var outputWidthLimit = AllowedWidth;
+        var outputWidthLimit = Width;
 
         if (elementValue.Length <= outputWidthLimit)
         {
@@ -75,7 +74,7 @@ internal class ContentRender : IRenderElement<Content>
         var index = 0;
         var value = ViewComponent.Value;
 
-        var outputRenderElementWidth = AllowedWidth;
+        var outputRenderElementWidth = Width;
 
         int substringCount = GetValueHeight(outputRenderElementWidth);
         if (substringCount > 1) outputRenderElementWidth = outputRenderElementWidth - 1;
@@ -87,7 +86,7 @@ internal class ContentRender : IRenderElement<Content>
             var sbString = value.Skip(index).Take(outputRenderElementWidth).ToArray();
             index += outputRenderElementWidth;
             var isLast = i + 1 == substringCount;
-            var str = isLast ? new string(sbString).PadRight(AllowedWidth) : new string(sbString) + "⤸";
+            var str = isLast ? new string(sbString).PadRight(Width) : new string(sbString) + "⤸";
             result.Add(str);
         }
 

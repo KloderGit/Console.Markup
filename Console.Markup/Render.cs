@@ -1,9 +1,7 @@
 using System.Diagnostics;
-using System.Drawing;
-using ConsoleMarkup.Interface;
-using ConsoleMarkup.RenderElement;
+using Markup.Interface;
 
-namespace ConsoleMarkup;
+namespace Markup;
 
 public class Render
 {
