@@ -12,6 +12,7 @@
         <RepositoryUrl>https://github.com/KloderGit/Console.Markup</RepositoryUrl>
         <RepositoryType>library</RepositoryType>
         <PackageTags>console markup layout render</PackageTags>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
 </Project>
