@@ -3,6 +3,9 @@ using Markup.RenderElement;
 
 namespace Markup;
 
+/// <summary>
+/// Block unit of markup
+/// </summary>
 public class Block : IBlockElement, IViewComponent
 {
     private readonly Direction direction;
